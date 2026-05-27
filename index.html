@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>API 导入数据汇总</title>
   <!-- v6 -->
   <style>
@@ -725,7 +723,105 @@
   .btn-edit:hover { background: #e0e7ff; color: #4f46e5; }
   .import-item:hover .btn-edit { color: #ddd; }
   </style>
-</head>
+<style id="xiaomei-toaster-styles">
+    /* vue-sonner 基础样式 */
+    #xiaomei-toaster-container {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toaster] {
+      pointer-events: auto !important;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast] {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #1f2937;
+      max-width: 400px;
+      pointer-events: auto !important;
+      margin-bottom: 8px;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast][data-type="warning"] {
+      background: #fef3c7;
+      border-color: #fbbf24;
+      color: #92400e;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast][data-type="error"] {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast][data-type="success"] {
+      background: #d1fae5;
+      border-color: #10b981;
+      color: #065f46;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast][data-type="info"] {
+      background: #dbeafe;
+      border-color: #3b82f6;
+      color: #1e40af;
+    }
+
+    /* 关闭按钮样式 */
+    #xiaomei-toaster-container [data-close-button] {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+      background: transparent;
+      border: none;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #xiaomei-toaster-container [data-close-button]:hover {
+      opacity: 1;
+    }
+
+    /* 动画 */
+    @keyframes slideInFromTop {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOutToTop {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast] {
+      animation: slideInFromTop 0.3s ease-out;
+    }
+
+    #xiaomei-toaster-container [data-sonner-toast][data-removed="true"] {
+      animation: slideOutToTop 0.2s ease-in;
+    }
+  </style></head>
 <body>
 
 <div class="header">
@@ -733,10 +829,10 @@
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px;">
     <p style="margin:0;">银行/企业 API 商户数据导入记录，支持新增并自动汇总</p>
     <div style="display:flex;align-items:center;gap:12px;">
-      <span id="saveStatus" style="font-size:12px;">○ 使用内置数据</span>
-      <button onclick="exportHTML()" style="font-size:11px;padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.35);background:rgba(79,70,229,0.5);color:white;cursor:pointer;font-weight:600;transition:background 0.15s;" onmouseover="this.style.background='rgba(79,70,229,0.75)'" onmouseout="this.style.background='rgba(79,70,229,0.5)'">⬇ 导出最新HTML</button>
-      <button onclick="pushToGitHub()" style="font-size:11px;padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.35);background:rgba(34,197,94,0.45);color:white;cursor:pointer;font-weight:600;transition:background 0.15s;" onmouseover="this.style.background='rgba(34,197,94,0.7)'" onmouseout="this.style.background='rgba(34,197,94,0.45)'">☁ 同步到GitHub</button>
-      <button onclick="resetToInitial()" style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">↺ 重置初始数据</button>
+      <span id="saveStatus" style="font-size:12px;"><span style="color:#22c55e;">● 本地已保存</span> <span style="color:#9ca3af;font-size:11px;">17:58:26</span></span>
+      <button onclick="exportHTML()" style="font-size: 11px; padding: 4px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(79, 70, 229, 0.5); color: white; cursor: pointer; font-weight: 600; transition: background 0.15s;" onmouseover="this.style.background='rgba(79,70,229,0.75)'" onmouseout="this.style.background='rgba(79,70,229,0.5)'">⬇ 导出最新HTML</button>
+      <button onclick="pushToGitHub()" style="font-size: 11px; padding: 4px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(34, 197, 94, 0.45); color: white; cursor: pointer; font-weight: 600; transition: background 0.15s;" onmouseover="this.style.background='rgba(34,197,94,0.7)'" onmouseout="this.style.background='rgba(34,197,94,0.45)'">☁ 同步到GitHub</button>
+      <button onclick="resetToInitial()" style="font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.7); cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">↺ 重置初始数据</button>
     </div>
   </div>
 </div>
@@ -746,19 +842,19 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeEditModal()">×</button>
     <div class="modal-title">✏️ 编辑导入记录</div>
-    <input type="hidden" id="editId" />
+    <input type="hidden" id="editId">
     <div class="modal-grid">
       <div class="modal-group">
         <label>企业ID</label>
-        <input type="text" id="editBankId" placeholder="如：67594" />
+        <input type="text" id="editBankId" placeholder="如：67594">
       </div>
       <div class="modal-group">
         <label>企业名称 *</label>
-        <input type="text" id="editBankName" placeholder="如：民生银行" />
+        <input type="text" id="editBankName" placeholder="如：民生银行">
       </div>
       <div class="modal-group">
         <label>导入数量</label>
-        <input type="number" id="editCount" placeholder="空则表示未知" />
+        <input type="number" id="editCount" placeholder="空则表示未知">
       </div>
       <div class="modal-group">
         <label>环境</label>
@@ -770,27 +866,27 @@
       </div>
       <div class="modal-group">
         <label>提交人</label>
-        <input type="text" id="editSubmitter" />
+        <input type="text" id="editSubmitter">
       </div>
       <div class="modal-group">
         <label>提交时间</label>
-        <input type="text" id="editSubmitTime" placeholder="如：2026-05-25" />
+        <input type="text" id="editSubmitTime" placeholder="如：2026-05-25">
       </div>
       <div class="modal-group">
         <label>导入人</label>
-        <input type="text" id="editImporter" />
+        <input type="text" id="editImporter">
       </div>
       <div class="modal-group">
         <label>导入时间</label>
-        <input type="text" id="editImportTime" placeholder="如：2026-05-25" />
+        <input type="text" id="editImportTime" placeholder="如：2026-05-25">
       </div>
       <div class="modal-group">
         <label>文件数</label>
-        <input type="number" id="editFileCount" placeholder="0" min="0" />
+        <input type="number" id="editFileCount" placeholder="0" min="0">
       </div>
       <div class="modal-group">
         <label>数量注释</label>
-        <input type="text" id="editCountNote" placeholder="可空" />
+        <input type="text" id="editCountNote" placeholder="可空">
       </div>
       <div class="modal-group span2">
         <label>导入说明 / 描述</label>
@@ -807,11 +903,1123 @@
 <div class="main">
 
   <!-- 顶部统计 -->
-  <div class="stat-cards" id="statCards"></div>
+  <div class="stat-cards" id="statCards">
+    <div class="stat-card blue">
+      <div class="label">企业数量</div>
+      <div class="value">9</div>
+      <div class="sub">家企业/银行</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">导入总批次</div>
+      <div class="value">35</div>
+      <div class="sub">条记录，其中1条数量未知</div>
+    </div>
+    <div class="stat-card green">
+      <div class="label">已知导入总数量</div>
+      <div class="value">2,156,390</div>
+      <div class="sub">条商户数据</div>
+    </div>
+  </div>
 
   <!-- 银行汇总卡片 -->
   <div class="section-title">各企业导入汇总</div>
-  <div class="bank-grid" id="bankGrid"></div>
+  <div class="bank-grid" id="bankGrid">
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_53248')">
+          <div class="left">
+            <div class="bank-icon" style="background:#fff7ed;color:#f97316;">🏦</div>
+            <div>
+              <div class="bank-name">工行e生活（正式）</div>
+              <div class="bank-id">企业ID: 53248</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#f97316;">206,914</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">4 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_53248">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_53248">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              全国4星以上 + 河南、湖北、北京、广东、上海、湖南
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <span class="import-count unknown">原文无数量记录</span>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(1, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(1, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2023-08</span>
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：李娜</span>
+            
+            
+            
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#2</span>
+              工行门店供给需求1.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">196 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(2, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(2, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2023-08-18 10:50</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2023-08-18 20:50:47</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#3</span>
+              工行到店供给需求2.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">2,017 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(3, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(3, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2023-08-18 10:50</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2023-08-18 20:50:47</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#4</span>
+              品牌商家-工行需导入商家.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">204,701 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(4, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(4, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2023-08-21 19:55</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2023-08-22 20:50:47</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_54153')">
+          <div class="left">
+            <div class="bank-icon" style="background:#eff6ff;color:#3b82f6;">🏧</div>
+            <div>
+              <div class="bank-name">浦发银行ToC补贴（正式）</div>
+              <div class="bank-id">企业ID: 54153</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#3b82f6;">5</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">1 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_54153">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_54153">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              特定商家-浦发需导入商家24051701.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">5 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(5, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(5, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2024-05-17 15:40</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2024-05-17 23:59</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_67593')">
+          <div class="left">
+            <div class="bank-icon" style="background:#f0fdfa;color:#14b8a6;">🏛️</div>
+            <div>
+              <div class="bank-name">民生信用卡中心（测试）</div>
+              <div class="bank-id">企业ID: 67593</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#14b8a6;">299</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">1 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_67593">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_67593">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              民生20250811.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">299 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(12, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(12, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-08-11 16:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-08-11 16:17</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_67594')">
+          <div class="left">
+            <div class="bank-icon" style="background:#f0f9ff;color:#0ea5e9;">🏛️</div>
+            <div>
+              <div class="bank-name">民生信用卡中心（正式）</div>
+              <div class="bank-id">企业ID: 67594</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#0ea5e9;">543,843</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">10 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_67594">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_67594">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              民生20250901.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">299 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(13, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(13, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-09-01 11:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-09-01 11:05</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#2</span>
+              民生火锅烧烤20251014.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">28,012 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(14, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(14, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-10-14 01:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-10-14 01:00</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#3</span>
+              民生烧烤品类4.8万家20251015.xlsx + 民生品牌火锅20251015.xlsx（共2个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">51,852 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-calc">计算所得</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(15, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(15, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-10-15 19:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-10-15 19:00</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 2 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>48399 + 3453，文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#4</span>
+              民生2025101701.xlsx ~ 民生2025101705.xlsx + 民生20251017.xlsx（共6个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">259,792 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-calc">计算所得</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(16, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(16, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-10-16 19:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-10-17 15:47</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 6 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>44515×5 + 17139 + 20078，文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#5</span>
+              （导入）20151204-火锅Top品牌更新1.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">3,526 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(17, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(17, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-12-04 16:45:34</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-12-04 16:45:41</span>
+            
+            <span class="meta-item"><span class="icon">🔧</span>导入人：李凯希(Cathy Li)</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#6</span>
+              1209-火锅失败部分重新导入.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">41 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(18, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(18, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-12-10 18:56:57</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-12-10 18:57:02</span>
+            
+            <span class="meta-item"><span class="icon">🔧</span>导入人：李凯希(Cathy Li)</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#7</span>
+              活动主题：团圆饭；维度：12家指定品牌全国门店；团圆饭导入商户id表.xlsx / id表（2）.xlsx / 提督id表.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">608 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(19, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(19, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            
+            <span class="files-tag">📎 3 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入数量：608"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#8</span>
+              活动主题：奶茶咖啡饮品；维度：四星以上，指定城市TOP饮品品牌商户；咖啡奶茶饮品商户id表（3份）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">109,370 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(20, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(20, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：20260203</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：20260203</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            
+            <span class="files-tag">📎 3 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入数量：109370"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#9</span>
+              poi_id_前5万.xlsx + poi_id_5万后.xlsx（共2个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">90,313 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(34, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(34, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-05-20</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2026-05-20</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：孙佳鑫</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：汤海燕</span>
+            <span class="files-tag">📎 2 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户：90313"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#10</span>
+              30家
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">30 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(35, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(35, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-05-25</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2026-05-25</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：孙佳鑫</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：孙佳鑫</span>
+            
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"30家"</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_68330')">
+          <div class="left">
+            <div class="bank-icon" style="background:#f0fdf4;color:#22c55e;">🏬</div>
+            <div>
+              <div class="bank-name">【正式】龙湖API项目</div>
+              <div class="bank-id">企业ID: 68330</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#22c55e;">347</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">1 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_68330">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_68330">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              龙湖商场数据240923.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">347 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(6, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(6, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2024-09-23 18:30</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2024-09-23 18:33</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：鲁虎军</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_73149')">
+          <div class="left">
+            <div class="bank-icon" style="background:#faf5ff;color:#a855f7;">💳</div>
+            <div>
+              <div class="bank-name">银联云闪付-测试</div>
+              <div class="bank-id">企业ID: 73149</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#a855f7;">299</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">1 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_73149">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_73149">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              银联20250303.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">299 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(7, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(7, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-03-03 15:15</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-03-03 15:15</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：鲁虎军</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_73151')">
+          <div class="left">
+            <div class="bank-icon" style="background:#fdf2f8;color:#ec4899;">💳</div>
+            <div>
+              <div class="bank-name">银联云闪付-生产</div>
+              <div class="bank-id">企业ID: 73151</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#ec4899;">912,590</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">4 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_73151">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_73151">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              银联数据01.xlsx / 银联数据02.xlsx / 银联数据03.xlsx（共3个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">10,000 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-name">名称字段</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(8, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(8, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-03-28 00:18</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-03-28 00:18</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：鲁虎军</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 3 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>来自企业名称字段"累计10000条"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#2</span>
+              银联云闪付汇总（39+2.9）导1.xlsx ~ 导12.xlsx（共12个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">507,255 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-name">名称字段</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(9, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(9, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-04-16 02:39</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-04-16 02:39</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：鲁虎军</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 12 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>来自企业名称字段"累计507255条"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#3</span>
+              表1.xlsx ~ 表6.xlsx（共6个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">295,335 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-name">名称字段</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(10, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(10, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-04-23 22:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-04-23 22:10</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：熊焰</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 6 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>来自企业名称字段"累计295335条"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#4</span>
+              背景：补齐10W闭店商户；【银联API】10W商户-银联确认id导入底表1.xlsx / 底表2.xlsx / 底表3.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">100,000 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(11, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(11, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            
+            <span class="meta-item"><span class="icon">✅</span>导入：0320</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            
+            <span class="files-tag">📎 3 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"数量：100000"</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_81158')">
+          <div class="left">
+            <div class="bank-icon" style="background:#fffbeb;color:#f59e0b;">🔷</div>
+            <div>
+              <div class="bank-name">兴业银行-测试企业</div>
+              <div class="bank-id">企业ID: 81158</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#f59e0b;">45,195</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">5 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_81158">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_81158">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              兴业2025092401.xlsx + 兴业2025092402.xlsx（共2个文件）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">1,598 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(21, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(21, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-09-24 11:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-09-24 21:05</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 2 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"共计：1598"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#2</span>
+              兴业火锅20251015.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">800 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(22, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(22, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-10-15 19:00</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-10-15 19:00</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#3</span>
+              兴业测试企业2025111901.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">100 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(23, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(23, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-11-19 00:36</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2025-11-19 00:36</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#4</span>
+              兴业测试企业2025112001.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">100 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(24, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(24, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：鲁虎军</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件行数统计</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-test">测试</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#5</span>
+              上海分行需求；兴业上海全量商户导入id表0514.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">42,597 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(33, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(33, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            
+            
+            
+            
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户：42597"</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    
+      <div class="bank-card">
+        <div class="bank-card-header" onclick="toggleBank('bank_81160')">
+          <div class="left">
+            <div class="bank-icon" style="background:#fef2f2;color:#ef4444;">🔷</div>
+            <div>
+              <div class="bank-name">兴业银行-正式企业</div>
+              <div class="bank-id">企业ID: 81160</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;">
+            <div class="bank-total">
+              <div class="num" style="color:#ef4444;">446,898</div>
+              <div class="unit">条（已知）</div>
+              <div class="badge">8 批次导入</div>
+            </div>
+            <div class="toggle-icon" id="icon_bank_81160">▼</div>
+          </div>
+        </div>
+        <div class="import-list" id="bank_81160">
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#1</span>
+              1202-81160-上海10家.xlsx（文件名含数量"10家"）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">10 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(25, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(25, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-12-02 15:01:31</span>
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：李凯希(Cathy Li)</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：李凯希(Cathy Li)</span>
+            <span class="files-tag">📎 1 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>文件名含"上海10家"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#2</span>
+              城市：天津市；维度：3.5-5星团购商户数据（无附件，未实际导入）
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">31,019 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(26, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(26, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-12-26 19:43:10</span>
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            
+            
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"初始导入商户量：31019家"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#3</span>
+              城市：广西（南宁、柳州、桂林、北海、钦州）+ 四川（成都等）12个城市；维度：4星以上团购；25078第一批兴业.xlsx / 50000兴业第二批.xlsx / 3192第三批兴业.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">106,470 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(27, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(27, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2025-12-29 19:46:01</span>
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            
+            <span class="files-tag">📎 3 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户量：106470家"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#4</span>
+              城市：福州、上海、北京；维度：4星及以上团购；0107第一批.xlsx / 0107第二批.xlsx / 0107第三批.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">124,464 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(28, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(28, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-01-07 20:19:47</span>
+            
+            <span class="meta-item"><span class="icon">👤</span>提交人：郑惠芳</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：汤海燕</span>
+            <span class="files-tag">📎 3 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户数：124464"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#5</span>
+              城市：一省三城（南京、无锡、常州、南通、徐州、泰州、扬州、镇江、盐城、淮安、连云港、宿迁、宁波、武汉、西安）；维度：4星以上团购；分4个文件导入
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">85,022 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(29, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(29, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-02-02</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2026-02-02</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：汤海燕</span>
+            <span class="files-tag">📎 4 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户数：85022"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#6</span>
+              福州分行商户需求：C+C日咖夜酒(温泉公园店)
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">1 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(30, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(30, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-02-25</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2026-02-25</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：汤海燕</span>
+            
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户数：1"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#7</span>
+              福州分行+武汉（宜昌4城）分行商户需求；兴业福建到餐商户导入id底表0416.xlsx / 兴业宜昌4城商户导入id底表0416.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">38,265 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-text">原文记载</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(31, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(31, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-04-16</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2026-04-16</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：汤海燕</span>
+            <span class="files-tag">📎 2 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文明确写"导入商户数：38265=31180（福州）+6455（武汉）"</span>
+          </div>
+        </div>
+      
+        <div class="import-item">
+          <div class="import-item-top">
+            <div class="import-desc">
+              <span class="tag-env tag-prod">正式</span>
+              <span style="font-size:12px;color:#bbb;margin-right:6px;">#8</span>
+              北京分行需求；兴业北分新增商户需求星级id底表0428.xlsx / 底表（2）0428.xlsx / 品牌数据id底表0428.xlsx / 商圈商户id底表0428.xlsx
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:8px;flex-shrink:0;">
+              <div style="text-align:right;flex-shrink:0;">
+          <span class="import-count">61,647 条</span>
+          <div style="margin-top:3px;"><span class="count-src src-calc">计算所得</span></div>
+        </div>
+              <button class="btn-edit" title="编辑此记录" onclick="openEditModal(32, event)">✎</button>
+              <button class="btn-del" title="删除此记录" onclick="deleteRecord(32, event)">×</button>
+            </div>
+          </div>
+          <div class="import-meta">
+            <span class="meta-item"><span class="icon">📅</span>提交：2026-04-28</span>
+            <span class="meta-item"><span class="icon">✅</span>导入：2026-04-28</span>
+            <span class="meta-item"><span class="icon">👤</span>提交人：汤海燕</span>
+            <span class="meta-item"><span class="icon">🔧</span>导入人：汤海燕</span>
+            <span class="files-tag">📎 4 个文件</span>
+            <span class="meta-item" style="color:#94a3b8;font-style:italic;"><span class="icon">💬</span>原文写"50000+5125+4632+1890"，合计61647</span>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
 
   <!-- 最近删除记录 -->
   <div class="trash-section" id="trashSection" style="display:none;">
@@ -851,37 +2059,35 @@
     <div class="form-grid">
       <div class="form-group">
         <label>企业名称 *</label>
-        <select id="newBank">
-          <option value="">— 选择已有企业 —</option>
-        </select>
+        <select id="newBank"><option value="">— 选择已有企业 —</option><option value="工行e生活（正式）">工行e生活（正式） (53248)</option><option value="浦发银行ToC补贴（正式）">浦发银行ToC补贴（正式） (54153)</option><option value="民生信用卡中心（测试）">民生信用卡中心（测试） (67593)</option><option value="民生信用卡中心（正式）">民生信用卡中心（正式） (67594)</option><option value="【正式】龙湖API项目">【正式】龙湖API项目 (68330)</option><option value="银联云闪付-测试">银联云闪付-测试 (73149)</option><option value="银联云闪付-生产">银联云闪付-生产 (73151)</option><option value="兴业银行-测试企业">兴业银行-测试企业 (81158)</option><option value="兴业银行-正式企业">兴业银行-正式企业 (81160)</option></select>
       </div>
       <div class="form-group">
         <label>或输入新企业名称</label>
-        <input type="text" id="newBankCustom" placeholder="如：新银行-测试企业" />
+        <input type="text" id="newBankCustom" placeholder="如：新银行-测试企业">
       </div>
       <div class="form-group">
         <label>企业ID</label>
-        <input type="text" id="newBankId" placeholder="如：99999" />
+        <input type="text" id="newBankId" placeholder="如：99999">
       </div>
       <div class="form-group">
         <label>导入数量 *</label>
-        <input type="number" id="newCount" placeholder="如：10000" min="0" />
+        <input type="number" id="newCount" placeholder="如：10000" min="0">
       </div>
       <div class="form-group">
         <label>提交时间</label>
-        <input type="datetime-local" id="newSubmitTime" />
+        <input type="datetime-local" id="newSubmitTime">
       </div>
       <div class="form-group">
         <label>导入时间</label>
-        <input type="datetime-local" id="newImportTime" />
+        <input type="datetime-local" id="newImportTime">
       </div>
       <div class="form-group">
         <label>提交人</label>
-        <input type="text" id="newSubmitter" placeholder="如：张三" />
+        <input type="text" id="newSubmitter" placeholder="如：张三">
       </div>
       <div class="form-group">
         <label>导入人</label>
-        <input type="text" id="newImporter" placeholder="如：李四" />
+        <input type="text" id="newImporter" placeholder="如：李四">
       </div>
       <div class="form-group span2">
         <label>数据说明</label>
@@ -889,7 +2095,7 @@
       </div>
       <div class="form-group">
         <label>文件数量</label>
-        <input type="number" id="newFileCount" placeholder="如：3" min="0" />
+        <input type="number" id="newFileCount" placeholder="如：3" min="0">
       </div>
       <div class="form-group">
         <label>环境</label>
@@ -907,7 +2113,7 @@
   <div class="section-title">全量导入明细</div>
   <div class="table-section">
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="🔍 搜索企业名称、导入说明..." oninput="renderTable()" />
+      <input type="text" id="searchInput" placeholder="🔍 搜索企业名称、导入说明..." oninput="renderTable()">
     </div>
     <table>
       <thead>
@@ -925,13 +2131,503 @@
           <th style="width:32px;"></th>
         </tr>
       </thead>
-      <tbody id="tableBody"></tbody>
+      <tbody id="tableBody">
+      <tr>
+        <td style="color:#bbb;">1</td>
+        <td style="color:#888;font-size:12px;">53248</td>
+        <td><strong>工行e生活（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">全国4星以上 + 河南、湖北、北京、广东、上海、湖南</td>
+        <td class="count-cell unknown" title="原始记录未填写数量">—</td>
+        <td class="person-cell">李娜</td>
+        <td class="time-cell">2023-08</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">—</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(1, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(1, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">2</td>
+        <td style="color:#888;font-size:12px;">53248</td>
+        <td><strong>工行e生活（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">工行门店供给需求1.xlsx</td>
+        <td class="count-cell">196<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2023-08-18 10:50</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2023-08-18 20:50:47</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(2, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(2, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">3</td>
+        <td style="color:#888;font-size:12px;">53248</td>
+        <td><strong>工行e生活（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">工行到店供给需求2.xlsx</td>
+        <td class="count-cell">2,017<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2023-08-18 10:50</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2023-08-18 20:50:47</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(3, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(3, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">4</td>
+        <td style="color:#888;font-size:12px;">53248</td>
+        <td><strong>工行e生活（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">品牌商家-工行需导入商家.xlsx</td>
+        <td class="count-cell">204,701<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2023-08-21 19:55</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2023-08-22 20:50:47</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(4, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(4, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">5</td>
+        <td style="color:#888;font-size:12px;">54153</td>
+        <td><strong>浦发银行ToC补贴（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">特定商家-浦发需导入商家24051701.xlsx</td>
+        <td class="count-cell">5<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2024-05-17 15:40</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2024-05-17 23:59</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(5, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(5, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">6</td>
+        <td style="color:#888;font-size:12px;">68330</td>
+        <td><strong>【正式】龙湖API项目</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">龙湖商场数据240923.xlsx</td>
+        <td class="count-cell">347<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2024-09-23 18:30</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2024-09-23 18:33</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(6, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(6, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">7</td>
+        <td style="color:#888;font-size:12px;">73149</td>
+        <td><strong>银联云闪付-测试</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">银联20250303.xlsx</td>
+        <td class="count-cell">299<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-03-03 15:15</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-03-03 15:15</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(7, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(7, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">8</td>
+        <td style="color:#888;font-size:12px;">73151</td>
+        <td><strong>银联云闪付-生产</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">银联数据01.xlsx / 银联数据02.xlsx / 银联数据03.xlsx（共3个文件）</td>
+        <td class="count-cell">10,000<span class="src-badge src-name">名称</span></td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-03-28 00:18</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-03-28 00:18</td>
+        <td style="color:#aaa;font-size:12px;">3</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(8, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(8, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">9</td>
+        <td style="color:#888;font-size:12px;">73151</td>
+        <td><strong>银联云闪付-生产</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">银联云闪付汇总（39+2.9）导1.xlsx ~ 导12.xlsx（共12个文件）</td>
+        <td class="count-cell">507,255<span class="src-badge src-name">名称</span></td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-04-16 02:39</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-04-16 02:39</td>
+        <td style="color:#aaa;font-size:12px;">12</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(9, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(9, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">10</td>
+        <td style="color:#888;font-size:12px;">73151</td>
+        <td><strong>银联云闪付-生产</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">表1.xlsx ~ 表6.xlsx（共6个文件）</td>
+        <td class="count-cell">295,335<span class="src-badge src-name">名称</span></td>
+        <td class="person-cell">熊焰</td>
+        <td class="time-cell">2025-04-23 22:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-04-23 22:10</td>
+        <td style="color:#aaa;font-size:12px;">6</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(10, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(10, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">11</td>
+        <td style="color:#888;font-size:12px;">73151</td>
+        <td><strong>银联云闪付-生产</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">背景：补齐10W闭店商户；【银联API】10W商户-银联确认id导入底表1.xlsx / 底表2.xlsx / 底表3.xlsx</td>
+        <td class="count-cell">100,000<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">—</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">0320</td>
+        <td style="color:#aaa;font-size:12px;">3</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(11, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(11, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">12</td>
+        <td style="color:#888;font-size:12px;">67593</td>
+        <td><strong>民生信用卡中心（测试）</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">民生20250811.xlsx</td>
+        <td class="count-cell">299<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-08-11 16:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-08-11 16:17</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(12, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(12, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">13</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">民生20250901.xlsx</td>
+        <td class="count-cell">299<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-09-01 11:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-09-01 11:05</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(13, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(13, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">14</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">民生火锅烧烤20251014.xlsx</td>
+        <td class="count-cell">28,012<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-10-14 01:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-10-14 01:00</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(14, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(14, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">15</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">民生烧烤品类4.8万家20251015.xlsx + 民生品牌火锅20251015.xlsx（共2个文件）</td>
+        <td class="count-cell">51,852<span class="src-badge src-calc">计算</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-10-15 19:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-10-15 19:00</td>
+        <td style="color:#aaa;font-size:12px;">2</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(15, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(15, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">16</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">民生2025101701.xlsx ~ 民生2025101705.xlsx + 民生20251017.xlsx（共6个文件）</td>
+        <td class="count-cell">259,792<span class="src-badge src-calc">计算</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-10-16 19:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-10-17 15:47</td>
+        <td style="color:#aaa;font-size:12px;">6</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(16, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(16, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">17</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">（导入）20151204-火锅Top品牌更新1.xlsx</td>
+        <td class="count-cell">3,526<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">2025-12-04 16:45:34</td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-12-04 16:45:41</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(17, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(17, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">18</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">1209-火锅失败部分重新导入.xlsx</td>
+        <td class="count-cell">41<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">2025-12-10 18:56:57</td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-12-10 18:57:02</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(18, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(18, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">19</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">活动主题：团圆饭；维度：12家指定品牌全国门店；团圆饭导入商户id表.xlsx / id表（2）.xlsx / 提督id表.xlsx</td>
+        <td class="count-cell">608<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">—</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">3</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(19, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(19, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">20</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生信用卡中心（正式）</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">活动主题：奶茶咖啡饮品；维度：四星以上，指定城市TOP饮品品牌商户；咖啡奶茶饮品商户id表（3份）</td>
+        <td class="count-cell">109,370<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">20260203</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">20260203</td>
+        <td style="color:#aaa;font-size:12px;">3</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(20, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(20, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">21</td>
+        <td style="color:#888;font-size:12px;">81158</td>
+        <td><strong>兴业银行-测试企业</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">兴业2025092401.xlsx + 兴业2025092402.xlsx（共2个文件）</td>
+        <td class="count-cell">1,598<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-09-24 11:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-09-24 21:05</td>
+        <td style="color:#aaa;font-size:12px;">2</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(21, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(21, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">22</td>
+        <td style="color:#888;font-size:12px;">81158</td>
+        <td><strong>兴业银行-测试企业</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">兴业火锅20251015.xlsx</td>
+        <td class="count-cell">800<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-10-15 19:00</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-10-15 19:00</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(22, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(22, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">23</td>
+        <td style="color:#888;font-size:12px;">81158</td>
+        <td><strong>兴业银行-测试企业</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">兴业测试企业2025111901.xlsx</td>
+        <td class="count-cell">100<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-11-19 00:36</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">2025-11-19 00:36</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(23, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(23, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">24</td>
+        <td style="color:#888;font-size:12px;">81158</td>
+        <td><strong>兴业银行-测试企业</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">兴业测试企业2025112001.xlsx</td>
+        <td class="count-cell">100<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">—</td>
+        <td class="person-cell">鲁虎军</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(24, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(24, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">25</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行-正式企业</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">1202-81160-上海10家.xlsx（文件名含数量"10家"）</td>
+        <td class="count-cell">10<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">2025-12-02 15:01:31</td>
+        <td class="person-cell">李凯希(Cathy Li)</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(25, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(25, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">26</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行-正式企业</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">城市：天津市；维度：3.5-5星团购商户数据（无附件，未实际导入）</td>
+        <td class="count-cell">31,019<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2025-12-26 19:43:10</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">—</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(26, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(26, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">27</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行-正式企业</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">城市：广西（南宁、柳州、桂林、北海、钦州）+ 四川（成都等）12个城市；维度：4星以上团购；25078第一批兴业.xlsx / 50000兴业第二批.xlsx / 3192第三批兴业.xlsx</td>
+        <td class="count-cell">106,470<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2025-12-29 19:46:01</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">3</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(27, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(27, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">28</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行-正式企业</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">城市：福州、上海、北京；维度：4星及以上团购；0107第一批.xlsx / 0107第二批.xlsx / 0107第三批.xlsx</td>
+        <td class="count-cell">124,464<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">郑惠芳</td>
+        <td class="time-cell">2026-01-07 20:19:47</td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">3</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(28, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(28, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">29</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">城市：一省三城（南京、无锡、常州、南通、徐州、泰州、扬州、镇江、盐城、淮安、连云港、宿迁、宁波、武汉、西安）；维度：4星以上团购；分4个文件导入</td>
+        <td class="count-cell">85,022<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-02-02</td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-02-02</td>
+        <td style="color:#aaa;font-size:12px;">4</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(29, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(29, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">30</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">福州分行商户需求：C+C日咖夜酒(温泉公园店)</td>
+        <td class="count-cell">1<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-02-25</td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-02-25</td>
+        <td style="color:#aaa;font-size:12px;">—</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(30, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(30, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">31</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">福州分行+武汉（宜昌4城）分行商户需求；兴业福建到餐商户导入id底表0416.xlsx / 兴业宜昌4城商户导入id底表0416.xlsx</td>
+        <td class="count-cell">38,265<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-04-16</td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-04-16</td>
+        <td style="color:#aaa;font-size:12px;">2</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(31, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(31, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">32</td>
+        <td style="color:#888;font-size:12px;">81160</td>
+        <td><strong>兴业银行</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">北京分行需求；兴业北分新增商户需求星级id底表0428.xlsx / 底表（2）0428.xlsx / 品牌数据id底表0428.xlsx / 商圈商户id底表0428.xlsx</td>
+        <td class="count-cell">61,647<span class="src-badge src-calc">计算</span></td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-04-28</td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-04-28</td>
+        <td style="color:#aaa;font-size:12px;">4</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(32, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(32, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">33</td>
+        <td style="color:#888;font-size:12px;">81158</td>
+        <td><strong>兴业銀行-测试企业</strong> <span class="tag-env tag-test">测试</span></td>
+        <td style="font-size:12px;color:#555;">上海分行需求；兴业上海全量商户导入id表0514.xlsx</td>
+        <td class="count-cell">42,597<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">—</td>
+        <td class="person-cell">—</td>
+        <td class="time-cell">—</td>
+        <td style="color:#aaa;font-size:12px;">1</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(33, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(33, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">34</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生银行</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">poi_id_前5万.xlsx + poi_id_5万后.xlsx（共2个文件）</td>
+        <td class="count-cell">90,313<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">孙佳鑫</td>
+        <td class="time-cell">2026-05-20</td>
+        <td class="person-cell">汤海燕</td>
+        <td class="time-cell">2026-05-20</td>
+        <td style="color:#aaa;font-size:12px;">2</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(34, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(34, event)">×</button></td>
+      </tr>
+    
+      <tr>
+        <td style="color:#bbb;">35</td>
+        <td style="color:#888;font-size:12px;">67594</td>
+        <td><strong>民生银行</strong> <span class="tag-env tag-prod">正式</span></td>
+        <td style="font-size:12px;color:#555;">30家</td>
+        <td class="count-cell">30<span class="src-badge src-text">原文</span></td>
+        <td class="person-cell">孙佳鑫</td>
+        <td class="time-cell">2026-05-25</td>
+        <td class="person-cell">孙佳鑫</td>
+        <td class="time-cell">2026-05-25</td>
+        <td style="color:#aaa;font-size:12px;">—</td>
+        <td class="btn-del-td"><button class="btn-edit" title="编辑" onclick="openEditModal(35, event)" style="margin-right:2px;">✎</button><button class="btn-del" title="删除" onclick="deleteRecord(35, event)">×</button></td>
+      </tr>
+    </tbody>
     </table>
   </div>
 
 </div>
 
-<div class="toast" id="toast">✅ 记录已添加</div>
+<div class="toast show" id="toast">⏳ 同步中...</div>
 
 <script>
 // ===================== 原始数据 =====================
@@ -968,260 +2664,530 @@ const BANK_COLORS = {
 
 // countSource: 'text'=原文明确写了数量, 'calc'=原文有算式由我计算, 'name'=从企业名称字段提取, null=原文无数量记录
 let records = [
-  // 工行 53248 — 原文无数量记录
   {
-    id: 1, bankId: '53248', bankName: '工行e生活（正式）',
-    desc: '全国4星以上 + 河南、湖北、北京、广东、上海、湖南',
-    count: null, countSource: null, submitter: '李娜', importer: '',
-    submitTime: '2023-08', importTime: '', files: 0, env: 'prod'
+    "id": 1,
+    "bankId": "53248",
+    "bankName": "工行e生活（正式）",
+    "desc": "全国4星以上 + 河南、湖北、北京、广东、上海、湖南",
+    "count": null,
+    "countSource": null,
+    "submitter": "李娜",
+    "importer": "",
+    "submitTime": "2023-08",
+    "importTime": "",
+    "files": 0,
+    "env": "prod"
   },
   {
-    id: 2, bankId: '53248', bankName: '工行e生活（正式）',
-    desc: '工行门店供给需求1.xlsx',
-    count: 196, countSource: 'text', submitter: '郑惠芳', importer: '鲁虎军',
-    submitTime: '2023-08-18 10:50', importTime: '2023-08-18 20:50:47', files: 1, env: 'prod',
-    countNote: '文件行数统计'
+    "id": 2,
+    "bankId": "53248",
+    "bankName": "工行e生活（正式）",
+    "desc": "工行门店供给需求1.xlsx",
+    "count": 196,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "鲁虎军",
+    "submitTime": "2023-08-18 10:50",
+    "importTime": "2023-08-18 20:50:47",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 3, bankId: '53248', bankName: '工行e生活（正式）',
-    desc: '工行到店供给需求2.xlsx',
-    count: 2017, countSource: 'text', submitter: '郑惠芳', importer: '鲁虎军',
-    submitTime: '2023-08-18 10:50', importTime: '2023-08-18 20:50:47', files: 1, env: 'prod',
-    countNote: '文件行数统计'
+    "id": 3,
+    "bankId": "53248",
+    "bankName": "工行e生活（正式）",
+    "desc": "工行到店供给需求2.xlsx",
+    "count": 2017,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "鲁虎军",
+    "submitTime": "2023-08-18 10:50",
+    "importTime": "2023-08-18 20:50:47",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 4, bankId: '53248', bankName: '工行e生活（正式）',
-    desc: '品牌商家-工行需导入商家.xlsx',
-    count: 204701, countSource: 'text', submitter: '郑惠芳', importer: '鲁虎军',
-    submitTime: '2023-08-21 19:55', importTime: '2023-08-22 20:50:47', files: 1, env: 'prod',
-    countNote: '文件行数统计'
-  },
-  // 浦发 54153 — 原文无数量记录
-  {
-    id: 5, bankId: '54153', bankName: '浦发银行ToC补贴（正式）',
-    desc: '特定商家-浦发需导入商家24051701.xlsx',
-    count: 5, countSource: 'text', submitter: '郑惠芳', importer: '鲁虎军',
-    submitTime: '2024-05-17 15:40', importTime: '2024-05-17 23:59', files: 1, env: 'prod',
-    countNote: '文件行数统计'
-  },
-  // 龙湖 68330 — 原文无数量记录
-  {
-    id: 6, bankId: '68330', bankName: '【正式】龙湖API项目',
-    desc: '龙湖商场数据240923.xlsx',
-    count: 347, countSource: 'text', submitter: '鲁虎军', importer: '鲁虎军',
-    submitTime: '2024-09-23 18:30', importTime: '2024-09-23 18:33', files: 1, env: 'prod',
-    countNote: '文件行数统计'
-  },
-  // 银联测试 73149 — 原文无数量记录
-  {
-    id: 7, bankId: '73149', bankName: '银联云闪付-测试',
-    desc: '银联20250303.xlsx',
-    count: 299, countSource: 'text', submitter: '鲁虎军', importer: '鲁虎军',
-    submitTime: '2025-03-03 15:15', importTime: '2025-03-03 15:15', files: 1, env: 'test',
-    countNote: '文件行数统计'
-  },
-  // 银联生产 73151 — 数量均来自企业名称字段/正文明确记载
-  {
-    id: 8, bankId: '73151', bankName: '银联云闪付-生产',
-    desc: '银联数据01.xlsx / 银联数据02.xlsx / 银联数据03.xlsx（共3个文件）',
-    count: 10000, countSource: 'name', submitter: '鲁虎军', importer: '鲁虎军',
-    submitTime: '2025-03-28 00:18', importTime: '2025-03-28 00:18', files: 3, env: 'prod',
-    countNote: '来自企业名称字段"累计10000条"'
+    "id": 4,
+    "bankId": "53248",
+    "bankName": "工行e生活（正式）",
+    "desc": "品牌商家-工行需导入商家.xlsx",
+    "count": 204701,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "鲁虎军",
+    "submitTime": "2023-08-21 19:55",
+    "importTime": "2023-08-22 20:50:47",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 9, bankId: '73151', bankName: '银联云闪付-生产',
-    desc: '银联云闪付汇总（39+2.9）导1.xlsx ~ 导12.xlsx（共12个文件）',
-    count: 507255, countSource: 'name', submitter: '鲁虎军', importer: '鲁虎军',
-    submitTime: '2025-04-16 02:39', importTime: '2025-04-16 02:39', files: 12, env: 'prod',
-    countNote: '来自企业名称字段"累计507255条"'
+    "id": 5,
+    "bankId": "54153",
+    "bankName": "浦发银行ToC补贴（正式）",
+    "desc": "特定商家-浦发需导入商家24051701.xlsx",
+    "count": 5,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "鲁虎军",
+    "submitTime": "2024-05-17 15:40",
+    "importTime": "2024-05-17 23:59",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 10, bankId: '73151', bankName: '银联云闪付-生产',
-    desc: '表1.xlsx ~ 表6.xlsx（共6个文件）',
-    count: 295335, countSource: 'name', submitter: '熊焰', importer: '鲁虎军',
-    submitTime: '2025-04-23 22:00', importTime: '2025-04-23 22:10', files: 6, env: 'prod',
-    countNote: '来自企业名称字段"累计295335条"'
+    "id": 6,
+    "bankId": "68330",
+    "bankName": "【正式】龙湖API项目",
+    "desc": "龙湖商场数据240923.xlsx",
+    "count": 347,
+    "countSource": "text",
+    "submitter": "鲁虎军",
+    "importer": "鲁虎军",
+    "submitTime": "2024-09-23 18:30",
+    "importTime": "2024-09-23 18:33",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 11, bankId: '73151', bankName: '银联云闪付-生产',
-    desc: '背景：补齐10W闭店商户；【银联API】10W商户-银联确认id导入底表1.xlsx / 底表2.xlsx / 底表3.xlsx',
-    count: 100000, countSource: 'text', submitter: '汤海燕', importer: '',
-    submitTime: '', importTime: '0320', files: 3, env: 'prod',
-    countNote: '原文明确写"数量：100000"'
-  },
-  // 民生测试 67593 — 原文无数量记录
-  {
-    id: 12, bankId: '67593', bankName: '民生信用卡中心（测试）',
-    desc: '民生20250811.xlsx',
-    count: 299, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-08-11 16:00', importTime: '2025-08-11 16:17', files: 1, env: 'test',
-    countNote: '文件行数统计'
-  },
-  // 民生正式 67594
-  {
-    id: 13, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '民生20250901.xlsx',
-    count: 299, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-09-01 11:00', importTime: '2025-09-01 11:05', files: 1, env: 'prod',
-    countNote: '文件行数统计'
+    "id": 7,
+    "bankId": "73149",
+    "bankName": "银联云闪付-测试",
+    "desc": "银联20250303.xlsx",
+    "count": 299,
+    "countSource": "text",
+    "submitter": "鲁虎军",
+    "importer": "鲁虎军",
+    "submitTime": "2025-03-03 15:15",
+    "importTime": "2025-03-03 15:15",
+    "files": 1,
+    "env": "test",
+    "countNote": "文件行数统计"
   },
   {
-    id: 14, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '民生火锅烧烤20251014.xlsx',
-    count: 28012, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-10-14 01:00', importTime: '2025-10-14 01:00', files: 1, env: 'prod',
-    countNote: '文件行数统计'
+    "id": 8,
+    "bankId": "73151",
+    "bankName": "银联云闪付-生产",
+    "desc": "银联数据01.xlsx / 银联数据02.xlsx / 银联数据03.xlsx（共3个文件）",
+    "count": 10000,
+    "countSource": "name",
+    "submitter": "鲁虎军",
+    "importer": "鲁虎军",
+    "submitTime": "2025-03-28 00:18",
+    "importTime": "2025-03-28 00:18",
+    "files": 3,
+    "env": "prod",
+    "countNote": "来自企业名称字段\"累计10000条\""
   },
   {
-    id: 15, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '民生烧烤品类4.8万家20251015.xlsx + 民生品牌火锅20251015.xlsx（共2个文件）',
-    count: 51852, countSource: 'calc', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-10-15 19:00', importTime: '2025-10-15 19:00', files: 2, env: 'prod',
-    countNote: '48399 + 3453，文件行数统计'
+    "id": 9,
+    "bankId": "73151",
+    "bankName": "银联云闪付-生产",
+    "desc": "银联云闪付汇总（39+2.9）导1.xlsx ~ 导12.xlsx（共12个文件）",
+    "count": 507255,
+    "countSource": "name",
+    "submitter": "鲁虎军",
+    "importer": "鲁虎军",
+    "submitTime": "2025-04-16 02:39",
+    "importTime": "2025-04-16 02:39",
+    "files": 12,
+    "env": "prod",
+    "countNote": "来自企业名称字段\"累计507255条\""
   },
   {
-    id: 16, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '民生2025101701.xlsx ~ 民生2025101705.xlsx + 民生20251017.xlsx（共6个文件）',
-    count: 259792, countSource: 'calc', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-10-16 19:00', importTime: '2025-10-17 15:47', files: 6, env: 'prod',
-    countNote: '44515×5 + 17139 + 20078，文件行数统计'
+    "id": 10,
+    "bankId": "73151",
+    "bankName": "银联云闪付-生产",
+    "desc": "表1.xlsx ~ 表6.xlsx（共6个文件）",
+    "count": 295335,
+    "countSource": "name",
+    "submitter": "熊焰",
+    "importer": "鲁虎军",
+    "submitTime": "2025-04-23 22:00",
+    "importTime": "2025-04-23 22:10",
+    "files": 6,
+    "env": "prod",
+    "countNote": "来自企业名称字段\"累计295335条\""
   },
   {
-    id: 17, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '（导入）20151204-火锅Top品牌更新1.xlsx',
-    count: 3526, countSource: 'text', submitter: '', importer: '李凯希(Cathy Li)',
-    submitTime: '2025-12-04 16:45:34', importTime: '2025-12-04 16:45:41', files: 1, env: 'prod',
-    countNote: '文件行数统计'
+    "id": 11,
+    "bankId": "73151",
+    "bankName": "银联云闪付-生产",
+    "desc": "背景：补齐10W闭店商户；【银联API】10W商户-银联确认id导入底表1.xlsx / 底表2.xlsx / 底表3.xlsx",
+    "count": 100000,
+    "countSource": "text",
+    "submitter": "汤海燕",
+    "importer": "",
+    "submitTime": "",
+    "importTime": "0320",
+    "files": 3,
+    "env": "prod",
+    "countNote": "原文明确写\"数量：100000\""
   },
   {
-    id: 18, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '1209-火锅失败部分重新导入.xlsx',
-    count: 41, countSource: 'text', submitter: '', importer: '李凯希(Cathy Li)',
-    submitTime: '2025-12-10 18:56:57', importTime: '2025-12-10 18:57:02', files: 1, env: 'prod',
-    countNote: '文件行数统计'
+    "id": 12,
+    "bankId": "67593",
+    "bankName": "民生信用卡中心（测试）",
+    "desc": "民生20250811.xlsx",
+    "count": 299,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-08-11 16:00",
+    "importTime": "2025-08-11 16:17",
+    "files": 1,
+    "env": "test",
+    "countNote": "文件行数统计"
   },
   {
-    id: 19, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '活动主题：团圆饭；维度：12家指定品牌全国门店；团圆饭导入商户id表.xlsx / id表（2）.xlsx / 提督id表.xlsx',
-    count: 608, countSource: 'text', submitter: '汤海燕', importer: '',
-    submitTime: '', importTime: '', files: 3, env: 'prod',
-    countNote: '原文明确写"导入数量：608"'
+    "id": 13,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "民生20250901.xlsx",
+    "count": 299,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-09-01 11:00",
+    "importTime": "2025-09-01 11:05",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 20, bankId: '67594', bankName: '民生信用卡中心（正式）',
-    desc: '活动主题：奶茶咖啡饮品；维度：四星以上，指定城市TOP饮品品牌商户；咖啡奶茶饮品商户id表（3份）',
-    count: 109370, countSource: 'text', submitter: '汤海燕', importer: '',
-    submitTime: '20260203', importTime: '20260203', files: 3, env: 'prod',
-    countNote: '原文明确写"导入数量：109370"'
-  },
-  // 兴业测试 81158
-  {
-    id: 21, bankId: '81158', bankName: '兴业银行-测试企业',
-    desc: '兴业2025092401.xlsx + 兴业2025092402.xlsx（共2个文件）',
-    count: 1598, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-09-24 11:00', importTime: '2025-09-24 21:05', files: 2, env: 'test',
-    countNote: '原文明确写"共计：1598"'
-  },
-  {
-    id: 22, bankId: '81158', bankName: '兴业银行-测试企业',
-    desc: '兴业火锅20251015.xlsx',
-    count: 800, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-10-15 19:00', importTime: '2025-10-15 19:00', files: 1, env: 'test',
-    countNote: '文件行数统计'
+    "id": 14,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "民生火锅烧烤20251014.xlsx",
+    "count": 28012,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-10-14 01:00",
+    "importTime": "2025-10-14 01:00",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 23, bankId: '81158', bankName: '兴业银行-测试企业',
-    desc: '兴业测试企业2025111901.xlsx',
-    count: 100, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '2025-11-19 00:36', importTime: '2025-11-19 00:36', files: 1, env: 'test',
-    countNote: '文件行数统计'
+    "id": 15,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "民生烧烤品类4.8万家20251015.xlsx + 民生品牌火锅20251015.xlsx（共2个文件）",
+    "count": 51852,
+    "countSource": "calc",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-10-15 19:00",
+    "importTime": "2025-10-15 19:00",
+    "files": 2,
+    "env": "prod",
+    "countNote": "48399 + 3453，文件行数统计"
   },
   {
-    id: 24, bankId: '81158', bankName: '兴业银行-测试企业',
-    desc: '兴业测试企业2025112001.xlsx',
-    count: 100, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '鲁虎军',
-    submitTime: '', importTime: '', files: 1, env: 'test',
-    countNote: '文件行数统计'
-  },
-  // 兴业正式 81160
-  {
-    id: 25, bankId: '81160', bankName: '兴业银行-正式企业',
-    desc: '1202-81160-上海10家.xlsx（文件名含数量"10家"）',
-    count: 10, countSource: 'text', submitter: '李凯希(Cathy Li)', importer: '李凯希(Cathy Li)',
-    submitTime: '2025-12-02 15:01:31', importTime: '', files: 1, env: 'prod',
-    countNote: '文件名含"上海10家"'
-  },
-  {
-    id: 26, bankId: '81160', bankName: '兴业银行-正式企业',
-    desc: '城市：天津市；维度：3.5-5星团购商户数据（无附件，未实际导入）',
-    count: 31019, countSource: 'text', submitter: '郑惠芳', importer: '',
-    submitTime: '2025-12-26 19:43:10', importTime: '', files: 0, env: 'prod',
-    countNote: '原文明确写"初始导入商户量：31019家"'
+    "id": 16,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "民生2025101701.xlsx ~ 民生2025101705.xlsx + 民生20251017.xlsx（共6个文件）",
+    "count": 259792,
+    "countSource": "calc",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-10-16 19:00",
+    "importTime": "2025-10-17 15:47",
+    "files": 6,
+    "env": "prod",
+    "countNote": "44515×5 + 17139 + 20078，文件行数统计"
   },
   {
-    id: 27, bankId: '81160', bankName: '兴业银行-正式企业',
-    desc: '城市：广西（南宁、柳州、桂林、北海、钦州）+ 四川（成都等）12个城市；维度：4星以上团购；25078第一批兴业.xlsx / 50000兴业第二批.xlsx / 3192第三批兴业.xlsx',
-    count: 106470, countSource: 'text', submitter: '郑惠芳', importer: '',
-    submitTime: '2025-12-29 19:46:01', importTime: '', files: 3, env: 'prod',
-    countNote: '原文明确写"导入商户量：106470家"'
+    "id": 17,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "（导入）20151204-火锅Top品牌更新1.xlsx",
+    "count": 3526,
+    "countSource": "text",
+    "submitter": "",
+    "importer": "李凯希(Cathy Li)",
+    "submitTime": "2025-12-04 16:45:34",
+    "importTime": "2025-12-04 16:45:41",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 28, bankId: '81160', bankName: '兴业银行-正式企业',
-    desc: '城市：福州、上海、北京；维度：4星及以上团购；0107第一批.xlsx / 0107第二批.xlsx / 0107第三批.xlsx',
-    count: 124464, countSource: 'text', submitter: '郑惠芳', importer: '汤海燕',
-    submitTime: '2026-01-07 20:19:47', importTime: '', files: 3, env: 'prod',
-    countNote: '原文明确写"导入商户数：124464"'
+    "id": 18,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "1209-火锅失败部分重新导入.xlsx",
+    "count": 41,
+    "countSource": "text",
+    "submitter": "",
+    "importer": "李凯希(Cathy Li)",
+    "submitTime": "2025-12-10 18:56:57",
+    "importTime": "2025-12-10 18:57:02",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件行数统计"
   },
   {
-    id: 29, bankId: '81160', bankName: '兴业银行',
-    desc: '城市：一省三城（南京、无锡、常州、南通、徐州、泰州、扬州、镇江、盐城、淮安、连云港、宿迁、宁波、武汉、西安）；维度：4星以上团购；分4个文件导入',
-    count: 85022, countSource: 'text', submitter: '汤海燕', importer: '汤海燕',
-    submitTime: '2026-02-02', importTime: '2026-02-02', files: 4, env: 'prod',
-    countNote: '原文明确写"导入商户数：85022"'
+    "id": 19,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "活动主题：团圆饭；维度：12家指定品牌全国门店；团圆饭导入商户id表.xlsx / id表（2）.xlsx / 提督id表.xlsx",
+    "count": 608,
+    "countSource": "text",
+    "submitter": "汤海燕",
+    "importer": "",
+    "submitTime": "",
+    "importTime": "",
+    "files": 3,
+    "env": "prod",
+    "countNote": "原文明确写\"导入数量：608\""
   },
   {
-    id: 30, bankId: '81160', bankName: '兴业银行',
-    desc: '福州分行商户需求：C+C日咖夜酒(温泉公园店)',
-    count: 1, countSource: 'text', submitter: '汤海燕', importer: '汤海燕',
-    submitTime: '2026-02-25', importTime: '2026-02-25', files: 0, env: 'prod',
-    countNote: '原文明确写"导入商户数：1"'
+    "id": 20,
+    "bankId": "67594",
+    "bankName": "民生信用卡中心（正式）",
+    "desc": "活动主题：奶茶咖啡饮品；维度：四星以上，指定城市TOP饮品品牌商户；咖啡奶茶饮品商户id表（3份）",
+    "count": 109370,
+    "countSource": "text",
+    "submitter": "汤海燕",
+    "importer": "",
+    "submitTime": "20260203",
+    "importTime": "20260203",
+    "files": 3,
+    "env": "prod",
+    "countNote": "原文明确写\"导入数量：109370\""
   },
   {
-    id: 31, bankId: '81160', bankName: '兴业银行',
-    desc: '福州分行+武汉（宜昌4城）分行商户需求；兴业福建到餐商户导入id底表0416.xlsx / 兴业宜昌4城商户导入id底表0416.xlsx',
-    count: 38265, countSource: 'text', submitter: '汤海燕', importer: '汤海燕',
-    submitTime: '2026-04-16', importTime: '2026-04-16', files: 2, env: 'prod',
-    countNote: '原文明确写"导入商户数：38265=31180（福州）+6455（武汉）"'
+    "id": 21,
+    "bankId": "81158",
+    "bankName": "兴业银行-测试企业",
+    "desc": "兴业2025092401.xlsx + 兴业2025092402.xlsx（共2个文件）",
+    "count": 1598,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-09-24 11:00",
+    "importTime": "2025-09-24 21:05",
+    "files": 2,
+    "env": "test",
+    "countNote": "原文明确写\"共计：1598\""
   },
   {
-    id: 32, bankId: '81160', bankName: '兴业银行',
-    desc: '北京分行需求；兴业北分新增商户需求星级id底表0428.xlsx / 底表（2）0428.xlsx / 品牌数据id底表0428.xlsx / 商圈商户id底表0428.xlsx',
-    count: 61647, countSource: 'calc', submitter: '汤海燕', importer: '汤海燕',
-    submitTime: '2026-04-28', importTime: '2026-04-28', files: 4, env: 'prod',
-    countNote: '原文写"50000+5125+4632+1890"，合计61647'
+    "id": 22,
+    "bankId": "81158",
+    "bankName": "兴业银行-测试企业",
+    "desc": "兴业火锅20251015.xlsx",
+    "count": 800,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-10-15 19:00",
+    "importTime": "2025-10-15 19:00",
+    "files": 1,
+    "env": "test",
+    "countNote": "文件行数统计"
   },
   {
-    id: 33, bankId: '81160', bankName: '兴业银行',
-    desc: '上海分行需求；兴业上海全量商户导入id表0514.xlsx',
-    count: 42597, countSource: 'text', submitter: '', importer: '',
-    submitTime: '', importTime: '', files: 1, env: 'prod',
-    countNote: '原文明确写"导入商户：42597"'
+    "id": 23,
+    "bankId": "81158",
+    "bankName": "兴业银行-测试企业",
+    "desc": "兴业测试企业2025111901.xlsx",
+    "count": 100,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "2025-11-19 00:36",
+    "importTime": "2025-11-19 00:36",
+    "files": 1,
+    "env": "test",
+    "countNote": "文件行数统计"
   },
-  // 民生正式 67594 — 新增
   {
-    id: 34, bankId: '67594', bankName: '民生银行',
-    desc: 'poi_id_前5万.xlsx + poi_id_5万后.xlsx（共2个文件）',
-    count: 90313, countSource: 'text', submitter: '孙佳鑫', importer: '汤海燕',
-    submitTime: '2026-05-20', importTime: '2026-05-20', files: 2, env: 'prod',
-    countNote: '原文明确写"导入商户：90313"'
+    "id": 24,
+    "bankId": "81158",
+    "bankName": "兴业银行-测试企业",
+    "desc": "兴业测试企业2025112001.xlsx",
+    "count": 100,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "鲁虎军",
+    "submitTime": "",
+    "importTime": "",
+    "files": 1,
+    "env": "test",
+    "countNote": "文件行数统计"
   },
   {
-    id: 35, bankId: '67594', bankName: '民生银行',
-    desc: '30家',
-    count: 30, countSource: 'text', submitter: '孙佳鑫', importer: '孙佳鑫',
-    submitTime: '2026-05-25', importTime: '2026-05-25', files: 0, env: 'prod',
-    countNote: '原文明确写"30家"'
+    "id": 25,
+    "bankId": "81160",
+    "bankName": "兴业银行-正式企业",
+    "desc": "1202-81160-上海10家.xlsx（文件名含数量\"10家\"）",
+    "count": 10,
+    "countSource": "text",
+    "submitter": "李凯希(Cathy Li)",
+    "importer": "李凯希(Cathy Li)",
+    "submitTime": "2025-12-02 15:01:31",
+    "importTime": "",
+    "files": 1,
+    "env": "prod",
+    "countNote": "文件名含\"上海10家\""
   },
+  {
+    "id": 26,
+    "bankId": "81160",
+    "bankName": "兴业银行-正式企业",
+    "desc": "城市：天津市；维度：3.5-5星团购商户数据（无附件，未实际导入）",
+    "count": 31019,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "",
+    "submitTime": "2025-12-26 19:43:10",
+    "importTime": "",
+    "files": 0,
+    "env": "prod",
+    "countNote": "原文明确写\"初始导入商户量：31019家\""
+  },
+  {
+    "id": 27,
+    "bankId": "81160",
+    "bankName": "兴业银行-正式企业",
+    "desc": "城市：广西（南宁、柳州、桂林、北海、钦州）+ 四川（成都等）12个城市；维度：4星以上团购；25078第一批兴业.xlsx / 50000兴业第二批.xlsx / 3192第三批兴业.xlsx",
+    "count": 106470,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "",
+    "submitTime": "2025-12-29 19:46:01",
+    "importTime": "",
+    "files": 3,
+    "env": "prod",
+    "countNote": "原文明确写\"导入商户量：106470家\""
+  },
+  {
+    "id": 28,
+    "bankId": "81160",
+    "bankName": "兴业银行-正式企业",
+    "desc": "城市：福州、上海、北京；维度：4星及以上团购；0107第一批.xlsx / 0107第二批.xlsx / 0107第三批.xlsx",
+    "count": 124464,
+    "countSource": "text",
+    "submitter": "郑惠芳",
+    "importer": "汤海燕",
+    "submitTime": "2026-01-07 20:19:47",
+    "importTime": "",
+    "files": 3,
+    "env": "prod",
+    "countNote": "原文明确写\"导入商户数：124464\""
+  },
+  {
+    "id": 29,
+    "bankId": "81160",
+    "bankName": "兴业银行",
+    "desc": "城市：一省三城（南京、无锡、常州、南通、徐州、泰州、扬州、镇江、盐城、淮安、连云港、宿迁、宁波、武汉、西安）；维度：4星以上团购；分4个文件导入",
+    "count": 85022,
+    "countSource": "text",
+    "submitter": "汤海燕",
+    "importer": "汤海燕",
+    "submitTime": "2026-02-02",
+    "importTime": "2026-02-02",
+    "files": 4,
+    "env": "prod",
+    "countNote": "原文明确写\"导入商户数：85022\""
+  },
+  {
+    "id": 30,
+    "bankId": "81160",
+    "bankName": "兴业银行",
+    "desc": "福州分行商户需求：C+C日咖夜酒(温泉公园店)",
+    "count": 1,
+    "countSource": "text",
+    "submitter": "汤海燕",
+    "importer": "汤海燕",
+    "submitTime": "2026-02-25",
+    "importTime": "2026-02-25",
+    "files": 0,
+    "env": "prod",
+    "countNote": "原文明确写\"导入商户数：1\""
+  },
+  {
+    "id": 31,
+    "bankId": "81160",
+    "bankName": "兴业银行",
+    "desc": "福州分行+武汉（宜昌4城）分行商户需求；兴业福建到餐商户导入id底表0416.xlsx / 兴业宜昌4城商户导入id底表0416.xlsx",
+    "count": 38265,
+    "countSource": "text",
+    "submitter": "汤海燕",
+    "importer": "汤海燕",
+    "submitTime": "2026-04-16",
+    "importTime": "2026-04-16",
+    "files": 2,
+    "env": "prod",
+    "countNote": "原文明确写\"导入商户数：38265=31180（福州）+6455（武汉）\""
+  },
+  {
+    "id": 32,
+    "bankId": "81160",
+    "bankName": "兴业银行",
+    "desc": "北京分行需求；兴业北分新增商户需求星级id底表0428.xlsx / 底表（2）0428.xlsx / 品牌数据id底表0428.xlsx / 商圈商户id底表0428.xlsx",
+    "count": 61647,
+    "countSource": "calc",
+    "submitter": "汤海燕",
+    "importer": "汤海燕",
+    "submitTime": "2026-04-28",
+    "importTime": "2026-04-28",
+    "files": 4,
+    "env": "prod",
+    "countNote": "原文写\"50000+5125+4632+1890\"，合计61647"
+  },
+  {
+    "id": 33,
+    "bankId": "81158",
+    "bankName": "兴业銀行-测试企业",
+    "desc": "上海分行需求；兴业上海全量商户导入id表0514.xlsx",
+    "count": 42597,
+    "countSource": "text",
+    "submitter": "",
+    "importer": "",
+    "submitTime": "",
+    "importTime": "",
+    "files": 1,
+    "env": "test",
+    "countNote": "原文明确写\"导入商户：42597\""
+  },
+  {
+    "id": 34,
+    "bankId": "67594",
+    "bankName": "民生银行",
+    "desc": "poi_id_前5万.xlsx + poi_id_5万后.xlsx（共2个文件）",
+    "count": 90313,
+    "countSource": "text",
+    "submitter": "孙佳鑫",
+    "importer": "汤海燕",
+    "submitTime": "2026-05-20",
+    "importTime": "2026-05-20",
+    "files": 2,
+    "env": "prod",
+    "countNote": "原文明确写\"导入商户：90313\""
+  },
+  {
+    "id": 35,
+    "bankId": "67594",
+    "bankName": "民生银行",
+    "desc": "30家",
+    "count": 30,
+    "countSource": "text",
+    "submitter": "孙佳鑫",
+    "importer": "孙佳鑫",
+    "submitTime": "2026-05-25",
+    "importTime": "2026-05-25",
+    "files": 0,
+    "env": "prod",
+    "countNote": "原文明确写\"30家\""
+  }
 ];
 
 let nextId = 36;
@@ -2140,5 +4106,6 @@ renderAll();
 renderTrash();
 updateSaveStatus();
 </script>
-</body>
-</html>
+
+
+<div id="xiaomei-root-element" class="xiaomei-root-element" style="position: absolute; top: 0px; left: 0px; z-index: 2147483647;"></div><div id="el-popper-container-4507"></div><div id="xiaomei-toaster-container" data-v-app="" style="position: fixed; top: 0px; left: 0px; width: 100%; z-index: 2147483647; pointer-events: none;"><!-- Remove item from normal navigation flow, only available via hotkey --><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"><ol data-sonner-toaster="" data-sonner-theme="light" class="" dir="ltr" tabindex="-1" data-theme="light" data-rich-colors="true" data-y-position="top" data-x-position="center" style="--front-toast-height: 0px; --width: 356px; --gap: 14px; pointer-events: auto; --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px;"></ol></section></div><span data-sec-extension="start" data-sec-extension-version="2.2.16" wenshu-version="" style="display: none; opacity: 0; pointer-events: none;"></span><div owl-ignore=""><!--SEC_WIDGETS_CONTAINER--><div owl-ignore=""></div></div></body></html>
