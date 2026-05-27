@@ -829,20 +829,20 @@
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px;">
     <p style="margin:0;">银行/企业 API 商户数据导入记录，支持新增并自动汇总</p>
     <div style="display:flex;align-items:center;gap:12px;">
-      <span id="saveStatus" style="font-size:12px;"><span style="color:#22c55e;">● 本地已保存</span> <span style="color:#9ca3af;font-size:11px;">18:10:14</span></span>
+      <span id="saveStatus" style="font-size:12px;"><span style="color:#22c55e;">● 本地已保存</span> <span style="color:#9ca3af;font-size:11px;">18:10:36</span></span>
       <button onclick="exportHTML()" style="font-size: 11px; padding: 4px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(79, 70, 229, 0.5); color: white; cursor: pointer; font-weight: 600; transition: background 0.15s;" onmouseover="this.style.background='rgba(79,70,229,0.75)'" onmouseout="this.style.background='rgba(79,70,229,0.5)'">⬇ 导出最新HTML</button>
-      <button onclick="pushToGitHub()" style="font-size: 11px; padding: 4px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(34, 197, 94, 0.45); color: white; cursor: pointer; font-weight: 600; transition: background 0.15s;" onmouseover="this.style.background='rgba(34,197,94,0.7)'" onmouseout="this.style.background='rgba(34,197,94,0.45)'">☁ 同步到GitHub</button>
-      <button onclick="resetToInitial()" style="font-size: 11px; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.7); cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">↺ 重置初始数据</button>
+      <button onclick="pushToGitHub()" style="font-size: 11px; padding: 4px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(34, 197, 94, 0.7); color: white; cursor: pointer; font-weight: 600; transition: background 0.15s;" onmouseover="this.style.background='rgba(34,197,94,0.7)'" onmouseout="this.style.background='rgba(34,197,94,0.45)'">☁ 同步到GitHub</button>
+      <button onclick="resetToInitial()" style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">↺ 重置初始数据</button>
     </div>
   </div>
 </div>
 
 <!-- 编辑 Modal -->
-<div class="modal-overlay" id="editModal" onclick="closeEditModal(event)" data-orig-env="prod" data-orig-bank-id="81160">
+<div class="modal-overlay" id="editModal" onclick="closeEditModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="closeEditModal()">×</button>
     <div class="modal-title">✏️ 编辑导入记录</div>
-    <input type="hidden" id="editId" value="36">
+    <input type="hidden" id="editId">
     <div class="modal-grid">
       <div class="modal-group">
         <label>企业ID</label>
@@ -2064,7 +2064,7 @@
     <span>🔄 从KM同步新增记录</span>
     <button class="sync-toggle" onclick="toggleSyncPanel()">收起 ▲</button>
   </div>
-  <div class="sync-section has-result" id="syncPanel">
+  <div class="sync-section" id="syncPanel">
     <div class="sync-steps">
       <b>使用步骤：</b><br>
       1. 打开 <span><a href="https://km.sankuai.com/collabpage/1832905193" target="_blank">KM文档</a></span>，全选页面内容（<span>Ctrl+A</span>），复制（<span>Ctrl+C</span>）<br>
@@ -2076,27 +2076,7 @@
       <button class="btn-sync" onclick="parseAndSync()">🔍 解析并对比</button>
       <button class="btn-sync-clear" onclick="clearSync()">清空</button>
     </div>
-    <div class="sync-result" id="syncResult"><div class="sync-result-title">发现 <span style="color:#4f46e5;font-size:16px;">1</span> 条新增记录（0 条已存在）：</div><div style="margin-bottom:12px;"><button class="btn-import-all" onclick="importAllSync()">⬇ 一键导入全部 1 条</button></div>
-        <div class="sync-new-item dupe" id="syncItem_0">
-          <div class="sync-new-body">
-            <div class="sn-top">
-              <b>兴业银行246603家</b> <span style="color:#aaa;font-size:11px;">(81160)</span>
-              &nbsp;<span style="color:#bbb;">数量未知</span>
-            </div>
-            <div class="sn-meta">
-              📄 —
-            </div>
-            <div class="sn-meta">
-              📅 提交：20260527
-               👤 孙佳鑫
-               ✅ 导入：20260527
-               🔧 孙佳鑫
-              
-            </div>
-          </div>
-          <button class="btn-import-one" id="btnImport_0" onclick="importOneSync(0)" disabled="" style="background: rgb(34, 197, 94);">已导入 ✓</button>
-        </div>
-      </div>
+    <div class="sync-result" id="syncResult"></div>
   </div>
 
   <!-- 新增记录 -->
@@ -4183,4 +4163,4 @@ updateSaveStatus();
 </script>
 
 
-<div id="xiaomei-root-element" class="xiaomei-root-element" style="position: absolute; top: 0px; left: 0px; z-index: 2147483647; right: auto;"></div><div id="el-popper-container-4507"></div><div id="xiaomei-toaster-container" data-v-app="" style="position: fixed; top: 0px; left: 0px; width: 100%; z-index: 2147483647; pointer-events: none;"><!-- Remove item from normal navigation flow, only available via hotkey --><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"><ol data-sonner-toaster="" data-sonner-theme="light" class="" dir="ltr" tabindex="-1" data-theme="light" data-rich-colors="true" data-y-position="top" data-x-position="center" style="--front-toast-height: 0px; --width: 356px; --gap: 14px; pointer-events: auto; --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px;"></ol></section></div><span data-sec-extension="start" data-sec-extension-version="2.2.16" wenshu-version="" style="display: none; opacity: 0; pointer-events: none;"></span><div owl-ignore=""><!--SEC_WIDGETS_CONTAINER--><div owl-ignore=""></div></div></body></html>
+<div id="xiaomei-root-element" class="xiaomei-root-element" style="position: absolute; top: 0px; left: 0px; z-index: 2147483647;"></div><div id="el-popper-container-6583"></div><div id="xiaomei-toaster-container" data-v-app="" style="position: fixed; top: 0px; left: 0px; width: 100%; z-index: 2147483647; pointer-events: none;"><!-- Remove item from normal navigation flow, only available via hotkey --><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"><ol data-sonner-toaster="" data-sonner-theme="light" class="" dir="ltr" tabindex="-1" data-theme="light" data-rich-colors="true" data-y-position="top" data-x-position="center" style="--front-toast-height: 0px; --width: 356px; --gap: 14px; pointer-events: auto; --offset-top: 24px; --offset-right: 24px; --offset-bottom: 24px; --offset-left: 24px; --mobile-offset-top: 16px; --mobile-offset-right: 16px; --mobile-offset-bottom: 16px; --mobile-offset-left: 16px;"></ol></section></div><span data-sec-extension="start" data-sec-extension-version="2.2.16" wenshu-version="" style="display: none; opacity: 0; pointer-events: none;"></span><div owl-ignore=""><!--SEC_WIDGETS_CONTAINER--><div owl-ignore=""></div></div></body></html>
